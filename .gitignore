@@ -1,0 +1,22 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables (Security साठी)
+.env
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Test Reports and Screenshots
+reports/
+screenshots/
+.pytest_cache/
+
+# IDE files
+.vscode/
+.idea/
