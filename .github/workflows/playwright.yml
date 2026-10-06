@@ -35,7 +35,7 @@ jobs:
 
     # स्टेप ५: पायटेस्ट रन करणे आणि रिपोर्ट तयार करणे (tests फोल्डरमधील टेस्टसाठी)
     - name: Run Playwright Tests
-      run: pytest tests/ --html=reports/report.html --self-contained-html
+      run: pytest tests/ --headed=false --html=reports/report.html --self-contained-html
       env:
         CI: "true"
 
