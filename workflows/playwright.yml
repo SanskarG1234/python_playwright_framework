@@ -6,8 +6,6 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  schedule:
-    - cron: '0 0 * * *' # रोज रात्री ऑटोमॅटिकली रन होण्यासाठी (Nightly Build)
 
 # २. प्रत्यक्ष काम काय करायचे आहे (Jobs)
 jobs:
@@ -25,23 +23,21 @@ jobs:
       with:
         python-version: '3.11'
 
-    # स्टेप ३: लायब्ररीज (Dependencies) इंस्टॉल करणे
+    # स्टेप ३: डिपेंडन्सीज थेट कमांडने इंस्टॉल करणे
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install playwright pytest pytest-html python-dotenv requests
 
-    # स्टेप ४: प्लेराईटचे इन-बिल्ट ब्राउझर इंस्टॉल करणे (खूप महत्त्वाचे ⭐)
+    # 🚀 स्टेप ४: प्लेराईटचे इन-बिल्ट ब्राउझर इंस्टॉल करणे (खूप महत्त्वाचे ⭐)
     - name: Install Playwright Browsers
       run: playwright install --with-deps
 
-    # स्टेप ५: पायटेस्ट रन करणे आणि रिपोर्ट तयार करणे
+    # स्टेप ५: पायटेस्ट रन करणे आणि रिपोर्ट तयार करणे (tests फोल्डरमधील टेस्टसाठी)
     - name: Run Playwright Tests
       run: pytest tests/ --html=reports/report.html --self-contained-html
       env:
-        # .env मधील गुपित गोष्टी गिटहब सिक्रेट्स मधून पास करणे
-        USER_NAME: ${{ secrets.ENV_USERNAME }}
-        PASSWORD: ${{ secrets.ENV_PASSWORD }}
+        CI: "true"
 
     # स्टेप ६: टेस्ट संपल्यावर रिपोर्ट गिटहबवर अपलोड करणे (Artifacts)
     - name: Upload Test Report
