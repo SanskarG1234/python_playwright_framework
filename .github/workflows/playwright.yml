@@ -37,7 +37,7 @@ jobs:
 
     # स्टेप ५: पायटेस्ट रन करणे आणि रिपोर्ट तयार करणे
     - name: Run Playwright Tests
-      run: pytest --html=reports/report.html --self-contained-html
+      run: pytest tests/ --html=reports/report.html --self-contained-html
       env:
         # .env मधील गुपित गोष्टी गिटहब सिक्रेट्स मधून पास करणे
         USER_NAME: ${{ secrets.ENV_USERNAME }}
